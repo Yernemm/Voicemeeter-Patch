@@ -15,8 +15,13 @@ namespace VoiceMeeterPatch
         public static void patchVoiceMeterBytes(string path)
         {
             if (System.IO.File.Exists(path) == false)
+            {
+                Console.WriteLine("voicemeeter8x64.exe not found");
                 return;
+            }
+                
             byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+            System.IO.File.WriteAllBytes(path + ".bak", fileBytes);
             fileBytes[0x93880] = 0xC7;
             fileBytes[0xB5BCB] = 0xC7;
 
